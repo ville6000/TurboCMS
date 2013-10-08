@@ -59,7 +59,7 @@ $app->get('/login', function () use ($app) {
  * Handle login form submission
  */
 $app->post('/login', function () use ($app, $Auth, $settings) {
-    if ($Auth->login($app->request()->post('passphrase'))) {
+    if ($Auth->passphraseLogin($app->request()->post('passphrase'))) {
         $app->response->redirect('admin');
     } else {
         $app->render('login.php');

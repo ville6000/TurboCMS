@@ -36,13 +36,13 @@ class Auth
     }
 
     /**
-     * Login
+     * Login user with passphrase
      *
      * @param $passphrase
      *
      * @return bool
      */
-    public function login($passphrase)
+    public function passphraseLogin($passphrase)
     {
         if ($passphrase == $this->settings['passphrase']) {
             $_SESSION['turbo_cms_login'] = password_hash($this->settings['passphrase'], PASSWORD_BCRYPT);
