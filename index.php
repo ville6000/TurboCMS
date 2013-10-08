@@ -27,7 +27,8 @@ $app->get('/', function () use($app) {
  * Admin form
  */
 $app->get('/admin', function () use ($app, $settings) {
-    if (!password_verify($settings['passphrase'], $_SESSION['turbo_cms_login'])) {
+    if (!isset($_SESSION['turbo_cms_login']) ||
+        !password_verify($settings['passphrase'], $_SESSION['turbo_cms_login'])) {
         $app->response->redirect('login');
     }
 
@@ -40,7 +41,8 @@ $app->get('/admin', function () use ($app, $settings) {
  * Handle admin form submission
  */
 $app->post('/admin', function () use ($app, $settings) {
-    if (!password_verify($settings['passphrase'], $_SESSION['turbo_cms_login'])) {
+    if (!isset($_SESSION['turbo_cms_login']) ||
+        !password_verify($settings['passphrase'], $_SESSION['turbo_cms_login'])) {
         $app->response->redirect('login');
     }
 
