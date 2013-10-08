@@ -1,4 +1,4 @@
 config.php
 vendor/
-lib/views/index.html
+core/views/index.html
 core/key_values.json
