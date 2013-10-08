@@ -4,8 +4,10 @@ session_start();
 require 'vendor/autoload.php';
 require 'config.php';
 require 'core/Parser.php';
+require 'core/Auth.php';
 
 $app = new \Slim\Slim(array('templates.path' => 'core/views'));
+$Auth = new \TurboCMS\Auth($settings);
 
 /**
  * Frontpage
@@ -21,9 +23,8 @@ $app->get('/', function () use($app) {
 /**
  * Admin form
  */
-$app->get('/admin', function () use ($app, $settings) {
-    if (!isset($_SESSION['turbo_cms_login']) ||
-        !password_verify($settings['passphrase'], $_SESSION['turbo_cms_login'])) {
+$app->get('/admin', function () use ($app, $Auth, $settings) {
+    if (!$Auth->isAuthorized()) {
         $app->response->redirect('login');
     }
 
@@ -35,9 +36,8 @@ $app->get('/admin', function () use ($app, $settings) {
 /**
  * Handle admin form submission
  */
-$app->post('/admin', function () use ($app, $settings) {
-    if (!isset($_SESSION['turbo_cms_login']) ||
-        !password_verify($settings['passphrase'], $_SESSION['turbo_cms_login'])) {
+$app->post('/admin', function () use ($app, $Auth, $settings) {
+    if (!$Auth->isAuthorized()) {
         $app->response->redirect('login');
     }
 
@@ -58,9 +58,8 @@ $app->get('/login', function () use ($app) {
 /**
  * Handle login form submission
  */
-$app->post('/login', function () use ($app, $settings) {
-    if ($app->request()->post('passphrase') == $settings['passphrase']) {
-        $_SESSION['turbo_cms_login'] = password_hash($settings['passphrase'], PASSWORD_BCRYPT);
+$app->post('/login', function () use ($app, $Auth, $settings) {
+    if ($Auth->login($app->request()->post('passphrase'))) {
         $app->response->redirect('admin');
     } else {
         $app->render('login.php');
