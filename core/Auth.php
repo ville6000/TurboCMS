@@ -2,8 +2,17 @@
 
 namespace TurboCMS;
 
+/**
+ * Class Auth
+ *
+ * @package TurboCMS
+ */
 class Auth
 {
+    /**
+     * TurboCMS settings
+     * @var array $settings
+     */
     private $settings;
 
     public function __construct($settings)

@@ -2,8 +2,17 @@
 
 namespace TurboCMS;
 
+/**
+ * Class Parser
+ *
+ * @package TurboCMS
+ */
 class Parser
 {
+    /**
+     * TurboCMS settings
+     * @var array $settings
+     */
     private $settings;
 
     public function __construct($settings)
@@ -11,11 +20,21 @@ class Parser
         $this->settings = $settings;
     }
 
+    /**
+     * Get layout file contents
+     *
+     * @return string
+     */
     private function getFile()
     {
         return file_get_contents($this->settings["layout"]);
     }
 
+    /**
+     * Get placeholder keys from layout file
+     *
+     * @return array
+     */
     public function getKeys()
     {
         $keys = array();
@@ -36,6 +55,13 @@ class Parser
         return $keys;
     }
 
+    /**
+     * Remove curly braces from placeholder string
+     *
+     * @param $match
+     *
+     * @return mixed
+     */
     private function filterKey($match)
     {
         $key = str_replace("{", "", $match);
@@ -44,6 +70,11 @@ class Parser
         return $key;
     }
 
+    /**
+     * Create layout file
+     *
+     * @param $postVars
+     */
     public function createFile($postVars)
     {
         $file = $this->replaceKeys($postVars);
@@ -51,6 +82,11 @@ class Parser
         $this->writeFile($file);
     }
 
+    /**
+     * Save placeholder values to json file
+     *
+     * @param $postVars
+     */
     private function saveValues($postVars)
     {
         $handle = fopen("core/key_values.json", "w+");
@@ -58,6 +94,11 @@ class Parser
         fclose($handle);
     }
 
+    /**
+     * Read previously saved values from json file.
+     *
+     * @return bool|mixed
+     */
     private function readValues()
     {
         if (file_exists("core/key_values.json")) {
@@ -68,6 +109,13 @@ class Parser
         }
     }
 
+    /**
+     * Replace placeholder keys with values
+     *
+     * @param $keys
+     *
+     * @return mixed|string
+     */
     public function replaceKeys($keys)
     {
         $file = $this->getFile();
@@ -78,11 +126,25 @@ class Parser
         return $file;
     }
 
+    /**
+     * Replace placeholder key with value
+     *
+     * @param $key
+     * @param $value
+     * @param $file
+     *
+     * @return mixed
+     */
     private function doReplaceKey($key, $value, $file)
     {
         return str_replace("{{{$key}}}", $value, $file);
     }
 
+    /**
+     * Create layout file
+     *
+     * @param $fileContents
+     */
     private function writeFile($fileContents)
     {
         $handle = fopen("core/views/index.html", "w+");
