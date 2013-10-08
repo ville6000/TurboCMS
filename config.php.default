@@ -1,0 +1,6 @@
+<?php
+
+$settings = array(
+    "passphrase" => "ULSlm>uDGY)1xOZk&^?kjKQ",
+    "layout" => "layout.html",
+);
