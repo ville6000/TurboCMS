@@ -5,12 +5,7 @@ require 'vendor/autoload.php';
 require 'config.php';
 require 'core/Parser.php';
 
-$app = new \Slim\Slim(
-    array(
-         'debug' => true,
-         'templates.path' => 'core/views',
-    )
-);
+$app = new \Slim\Slim(array('templates.path' => 'core/views'));
 
 /**
  * Frontpage
