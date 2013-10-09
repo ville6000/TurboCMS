@@ -1,3 +1,4 @@
 # Installation
 
-Run composer install in the root of the project to install dependencies
+Install dependencies with [composer](http://getcomposer.org/).
+<pre><code>$ composer install</code></pre>
