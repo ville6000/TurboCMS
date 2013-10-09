@@ -31,7 +31,8 @@ class Parser
     }
 
     /**
-     * Get placeholder keys from layout file
+     * Get placeholder keys from layout file.
+     * Previously saved values are returned as key values.
      *
      * @return array
      */
@@ -42,10 +43,12 @@ class Parser
         $file = $this->getFile();
         preg_match_all($pattern, $file, $matches);
 
+        // Layout file didn't contain any keys
         if (false === $matches) {
             return $keys;
         }
 
+        // Find previously saved values and set them as key values.
         $values = $this->readValues();
         for ($i = 0; $i < count($matches[0]); $i++) {
             $key = $this->filterKey($matches[0][$i]);
