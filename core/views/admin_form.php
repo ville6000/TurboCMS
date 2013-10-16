@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>TurboCMS</title>
     <link rel="stylesheet" type="text/css" href="core/css/turbocms.css"/>
+    <script src="core/ckeditor/ckeditor.js"></script>
 </head>
 <body>
 
@@ -17,7 +18,7 @@
             <?php foreach ($keys as $key => $value): ?>
                 <div class="form-element">
                     <label for="<?php echo $key; ?>"><?php echo $key; ?></label>
-                    <textarea name="<?php echo $key; ?>" id="<?php echo $key; ?>" cols="30" rows="10"><?php echo $value; ?></textarea>
+                    <textarea class="ckeditor" name="<?php echo $key; ?>" id="<?php echo $key; ?>" cols="30" rows="10"><?php echo $value; ?></textarea>
                 </div>
             <?php endforeach; ?>
 
