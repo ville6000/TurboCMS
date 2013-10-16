@@ -12,6 +12,11 @@
         <h1>TurboCMS</h1>
     </div>
     <div class="content">
+        <?php if (isset($message)): ?>
+            <div class="message">
+                <?php echo $message; ?>
+            </div>
+        <?php endif; ?>
         <form action="" method="post">
             <div class="form-element">
                 <label for="passphrase">Passphrase:</label>

@@ -62,7 +62,7 @@ $app->post('/login', function () use ($app, $Auth, $settings) {
     if ($Auth->passphraseLogin($app->request()->post('passphrase'))) {
         $app->response->redirect('admin');
     } else {
-        $app->render('login.php');
+        $app->render('login.php', array('message' => 'Login failed: passphrase is wrong.'));
     }
 });
 

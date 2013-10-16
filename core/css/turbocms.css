@@ -37,3 +37,9 @@ textarea {
 .form-element:last-child {
     margin-bottom: 0;
 }
+
+.message {
+    background: #ccddff;
+    margin-bottom: 20px;
+    padding: 5px;
+}
