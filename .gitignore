@@ -5,8 +5,5 @@ config.php
 core/views/index.html
 core/key_values.json
 
-# Files installed by composer
-vendor/
-
 # editor config
 .idea/
