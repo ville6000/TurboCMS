@@ -1,8 +1,12 @@
 # Installation
 
-Install dependencies with [composer](http://getcomposer.org/).
-<pre><code>$ composer install</code></pre>
+Upload files to your directory from which you will be serving your site.
 
-# Dependencies
- * [Slim Framework](https://github.com/codeguy/Slim)
- * [password_compat](https://github.com/ircmaxell/password_compat)
+# Configuration
+
+* Copy config.php.default and save the new as config.php in the same directory. 
+* Set your passphrase 
+
+# Server requirements
+* Apache
+* PHP 5.3.0 or newer
