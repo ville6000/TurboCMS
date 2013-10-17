@@ -4,7 +4,8 @@ TurboCMS is minimal file based CMS made with PHP.
 
 ## Installation
 
-Upload files to your server directory via FTP or some other deployment.
+* [Download](https://github.com/turbolihis/TurboCMS/archive/master.zip) latest version of TurboCMS
+* Upload files to your server directory via FTP or some other deployment.
 
 ## Configuration
 
