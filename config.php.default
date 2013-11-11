@@ -1,6 +1,14 @@
 <?php
 
 $settings = array(
-    "passphrase" => "ULSlm>uDGY)1xOZk&^?kjKQ",
     "layout" => "layout.html",
+
+    // Login settings
+    "passphrase" => "ULSlm>uDGY)1xOZk&^?kjKQ",
+
+    // Email login settings
+    "site_name" => "TurboTest CMS",
+    "allowed_emails" => array(
+        "example@mailaddress"
+    )
 );

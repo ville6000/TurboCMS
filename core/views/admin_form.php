@@ -26,6 +26,9 @@
                 <input type="submit" value="Save" class="form-submit" />
             </div>
         </form>
+        <p>
+            <a href="<?php echo $logoutUrl; ?>">Log out</a>
+        </p>
     </div>
 </div>
 
