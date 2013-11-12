@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
     <meta charset="UTF-8">
-    <title>TurboCMS</title>
+    <title><?php echo $siteName; ?> admin</title>
     <link rel="stylesheet" type="text/css" href="core/css/turbocms.css"/>
     <script src="core/ckeditor/ckeditor.js"></script>
 </head>
@@ -10,7 +10,7 @@
 
 <div class="container">
     <div class="header">
-        <h1>TurboCMS</h1>
+        <h1><?php echo $siteName; ?> admin</h1>
     </div>
     <div class="content">
         <h2>Save content for defined regions</h2>

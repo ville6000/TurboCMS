@@ -2,14 +2,14 @@
 <html lang="en-US">
 <head>
     <meta charset="UTF-8">
-    <title>TurboCMS</title>
+    <title><?php echo $siteName; ?> login</title>
     <link rel="stylesheet" type="text/css" href="<?php echo $baseUrl; ?>/core/css/turbocms.css"/>
 </head>
 <body>
 
 <div class="container">
     <div class="header">
-        <h1>TurboCMS</h1>
+        <h1><?php echo $siteName; ?> login</h1>
     </div>
     <div class="content">
         <?php if (isset($message)): ?>

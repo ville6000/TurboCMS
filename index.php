@@ -9,8 +9,11 @@ require 'core/Auth.php';
 $app = new \Slim\Slim(array('templates.path' => 'core/views'));
 $Auth = new \TurboCMS\Auth($settings);
 
-// Provide URLs to all views
-$app->hook('slim.before', function () use ($app) {
+// Provide variables to all views
+$app->hook('slim.before', function () use ($app, $settings) {
+    // Get and add site name from config
+    $app->view()->appendData(array('siteName' => $settings['site_name']));
+
     // Get and add base URL
     $posIndex = strpos($_SERVER['PHP_SELF'], '/index.php');
     $baseUrl = substr($_SERVER['PHP_SELF'], 0, $posIndex);
