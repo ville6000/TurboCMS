@@ -42,7 +42,7 @@ $app->get('/', function () use($app) {
  */
 $app->get('/admin', function () use ($app, $Auth, $settings) {
     if (!$Auth->isAuthorized()) {
-        $app->response->redirect('login');
+        $app->redirect('login');
     }
 
     $parser = new \TurboCMS\Parser($settings);
@@ -55,14 +55,14 @@ $app->get('/admin', function () use ($app, $Auth, $settings) {
  */
 $app->post('/admin', function () use ($app, $Auth, $settings) {
     if (!$Auth->isAuthorized()) {
-        $app->response->redirect('login');
+        $app->redirect('login');
     }
 
     $postVars = $app->request->post();
     $parser = new \TurboCMS\Parser($settings);
     $parser->createFile($postVars);
 
-    $app->response->redirect($app->urlFor('frontpage'));
+    $app->redirect($app->urlFor('frontpage'));
 });
 
 /**
@@ -71,7 +71,7 @@ $app->post('/admin', function () use ($app, $Auth, $settings) {
 $app->get('/login', function () use ($app, $Auth) {
     // Redirect to admin if already logged in
     if ($Auth->isAuthorized()) {
-        $app->response->redirect($app->urlFor('admin'));
+        $app->redirect($app->urlFor('admin'));
     }
 
     $app->render('login.php');
@@ -81,14 +81,15 @@ $app->get('/login', function () use ($app, $Auth) {
  * Login with token form email message
  */
 $app->get('/login/:token', function ($token) use ($app, $Auth) {
+    $app->log->debug('isAuthorized: ' . $Auth->isAuthorized());
     // Redirect to admin if already logged in
     if ($Auth->isAuthorized()) {
-        $app->response->redirect($app->urlFor('admin'));
+        $app->redirect($app->urlFor('admin'));
     }
 
     if ($Auth->handleEmailLogin($token)) {
         // Login with token successful, redirect to admin
-        $app->response->redirect($app->urlFor('admin'));
+        $app->redirect($app->urlFor('admin'));
     } else {
         // Login with token failed
         $app->view()->appendData(array('message' => 'Login failed: login token invalid or expired.'));
@@ -104,7 +105,7 @@ $app->get('/login/:token', function ($token) use ($app, $Auth) {
 $app->post('/login', function () use ($app, $Auth, $settings) {
     // Redirect to admin if already logged in
     if ($Auth->isAuthorized()) {
-        $app->response->redirect($app->urlFor('admin'));
+        $app->redirect($app->urlFor('admin'));
     }
 
     // Get form data
@@ -114,7 +115,7 @@ $app->post('/login', function () use ($app, $Auth, $settings) {
     if ($passphrase) {
         // Handle login with passphrase
         if ($Auth->passphraseLogin($app->request()->post('passphrase'))) {
-            $app->response->redirect($app->urlFor('admin'));
+            $app->redirect($app->urlFor('admin'));
         } else {
             $app->view()->appendData(array('message' => 'Login failed: passphrase is wrong.'));
             $app->render('login.php');
@@ -159,7 +160,7 @@ $app->post('/login', function () use ($app, $Auth, $settings) {
 $app->get('/logout', function () use ($app, $Auth) {
     $Auth->destroySession();
 
-    $app->response->redirect($app->urlFor('frontpage'));
+    $app->redirect($app->urlFor('frontpage'));
 })->name('logout');
 
 $app->run();
