@@ -31,17 +31,34 @@ class Parser
     }
 
     /**
-     * Get placeholder keys from layout file.
+     * Load layout file and get placeholder keys.
      * Previously saved values are returned as key values.
      *
      * @return array
      */
     public function getKeys()
     {
+        $fileContent = $this->getFile();
+        $existingValues = $this->readValues();
+        
+        return $this->getKeysFromContent($fileContent, $existingValues);
+    }
+
+    /**
+     * Get placeholder keys from content in parameters.
+     *
+     * @param $content Text content (from layout file) to get keys from
+     * @param $existingValues Current keys (in layout file), merged with new keys
+     *
+     * @return array
+     *
+     */
+    public function getKeysFromContent($content = '', $existingValues = array())
+    {
         $keys = array();
         $pattern = "/\{{.*?\}}/";
-        $file = $this->getFile();
-        preg_match_all($pattern, $file, $matches);
+        $matches = false;
+        preg_match_all($pattern, $content, $matches);
 
         // Layout file didn't contain any keys
         if (false === $matches) {
@@ -49,10 +66,9 @@ class Parser
         }
 
         // Find previously saved values and set them as key values.
-        $values = $this->readValues();
         for ($i = 0; $i < count($matches[0]); $i++) {
             $key = $this->filterKey($matches[0][$i]);
-            $keys[$key] = ($values) ? $values[$key] : "";
+            $keys[$key] = ($existingValues) ? $existingValues[$key] : "";
         }
 
         return $keys;
