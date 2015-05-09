@@ -26,6 +26,11 @@
                 <input type="submit" value="Save" class="form-submit" />
             </div>
         </form>
+	    <?php if (isset($loginMethod)): ?>
+	        <p>
+		        <?php echo $loginMethod; ?>
+	        </p>
+	    <?php endif; ?>
         <p>
             <a href="<?php echo $logoutUrl; ?>">Log out</a>
         </p>

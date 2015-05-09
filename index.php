@@ -48,9 +48,22 @@ $app->get('/admin', function () use ($app, $Auth, $settings) {
         $app->redirect('login');
     }
 
+	if (isset($_SESSION['turbo_cms_login_email'])) {
+		$loginMethod = "Logged in with email " . $_SESSION['turbo_cms_login_email'];
+	} else {
+		$loginMethod = "Logged in with passphrase";
+	}
+
     $parser = new \TurboCMS\Parser($settings);
     $layoutKeys = $parser->getKeys();
-    $app->render('admin_form.php', array('keys' => $layoutKeys));
+
+	$app->render(
+	    'admin_form.php',
+	    array(
+		    'keys' => $layoutKeys,
+		    'loginMethod' => $loginMethod
+	    )
+    );
 })->name('admin');
 
 /**
